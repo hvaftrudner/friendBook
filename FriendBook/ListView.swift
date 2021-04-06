@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ListView: View {
     
-    //change to observed object
     var userList: [User]
     @ObservedObject var userList2: UserList
     
@@ -31,7 +30,7 @@ struct ListView: View {
                                 
                                 Text(user.isActive ? "Active" : "not Active")
                                     .font(.subheadline)
-                                    .foregroundColor(user.isActive ? Color.init( red: 0, green: 6, blue: 0, opacity: 0.75) : Color.init(red: 5, green: 0, blue: 0, opacity: 0.75))
+                                    .foregroundColor(user.isActive ? Color.init( red: 0, green: 1, blue: 0, opacity: 0.75) : Color.init(red: 1, green: 0, blue: 0, opacity: 0.75))
                                 
                             }
                             .frame( height: 30)
@@ -48,12 +47,12 @@ struct ListView: View {
     }
 }
 
-//struct ListView_Previews: PreviewProvider {
-//    
-//    static let list = [User]()
-//    @ObservedObject var userList : UserList
-//    
-//    static var previews: some View {
-//        ListView(userList: list, userList2: userList)
-//    }
-//}
+struct ListView_Previews: PreviewProvider {
+    
+    static let list = [User]()
+    static let userList = UserList()
+    
+    static var previews: some View {
+        ListView(userList: list, userList2: userList)
+    }
+}

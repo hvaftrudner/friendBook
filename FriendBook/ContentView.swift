@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     
-    //fix this, get it to work as the class/ struct
-    //@ObservedObject var userList = UserList()
-    //@State var userList = [User]()
     @ObservedObject var userList = UserList()
    
     
@@ -30,16 +27,13 @@ struct ContentView: View {
                         .foregroundColor(Color.red.opacity(0.8))
                     
                 }
-//                .onTapGesture {
-//                    self.fetchUserData()
-//                }
             }
         }
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(userList: UserList())
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(userList: UserList())
+    }
+}

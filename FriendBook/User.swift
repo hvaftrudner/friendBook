@@ -17,40 +17,43 @@ class UserList: ObservableObject {
     }
     
     init(){
-        //self.userList = [User]()
         
-        //force unwrap because it is hardtyped
-        let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
+        self.userList = [User]()
         
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
-        
-        var newList = [User]()
-        self.userList = newList
-        
-        URLSession.shared.dataTask(with: request){ data, response, error in
-            
-            guard let data = data else {
-                print("No data in response: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            
-            if let decodedData = try? JSONDecoder().decode([User].self, from: data){
-                newList = decodedData
-                self.userList = decodedData
-                print("successful fetch")
-                
-            } else {
-                print("failed to init data")
-                newList = [User]()
-            }
-        }.resume()
-        
-        
-       // print(newList)
         print(self.userList)
         
+        if self.userList.isEmpty {
+            //force unwrap because it is hardtyped
+            let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
+            
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "GET"
+            
+            URLSession.shared.dataTask(with: request){ data, response, error in
+                
+                guard let data = data else {
+                    print("No data in response: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                DispatchQueue.main.async {
+                    if let decodedData = try? JSONDecoder().decode([User].self, from: data){
+                        
+                        self.userList = decodedData
+                        print("successful fetch")
+                        
+                    } else {
+                        print("failed to init data")
+                    }
+                }
+                
+            }.resume()
+            
+            print(self.userList)
+        } else {
+            print("has stored info")
+        }
+            
     }
     
     func encode(to encoder: Encoder) throws {
